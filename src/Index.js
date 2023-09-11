@@ -1,62 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<button class="btn btn-success" onclick=" window.open('https://drive.google.com/file/d/17EqWj2Gc64heI_6pdSiFI6pGgeoE6na7/view','_blank')"> How to Play</button>
-	<br>
-	<canvas id = "gameCanvas" width = "1100" height = "700">This text is displayed if your browser does not support html5. Browsers such as google chrome and firefox are a good place to go to get a html5 browser</canvas>
-	<script scr = "./keystrokes.js" type = "text/javascript"></script>
-	<script type="text/javascript">
-		
-		var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
+import { Player } from "../src/Player.js";
+
+var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
 		var context = canvas.getContext("2d"); //defines context - this is something which is used to draw to the canvas
 
-		//Player 1 variables
-
-		var player1Sprite1 = document.createElement("img");//New comment
-		player1Sprite1.src = "./player1Sprite1.png";
-		var player1Sprite2 = document.createElement("img");
-		player1Sprite2.src = "./player1Sprite2.png";
-
-		var player2Sprite1 = document.createElement("img");
-		player2Sprite1.src = "./player2Sprite1.png";
-		var player2Sprite2 = document.createElement("img");
-		player2Sprite2.src = "./player2Sprite2.png";
-		//These two lines define the variable player1Sprite as the type image and then gets the player1Sprite from the source defined and assigns it the the player1Sprite variable
-		var joustBackground = document.createElement("img");
-		joustBackground.src = "./joustBackground.png"
-
-		player1 = {
-			"x" : 300 , "y" : 600, "width" : 90*0.6, "height" : 120*0.6, 
-			"speedX" : 0, 
-			"speedY" : 0, 
-			"speedValue" : 4,
-			"jumpValue" : 4, 
-			"keyDown" : "", 
-			"keyUp" : " ", 
-			"moveDirectionX" : "right", 
-			"moveDirectionY" : "", 
-			"lastMoveDirection" : "",
-			"score" : 0
-		};
-		//defining the player1 object which within it holds the propterties listed above. If I want to alter player1 in any way then I will alter this variable and it will affect the whole program.
-		player2 = {
-			"x" : 700 , "y" : 600, "width" : 90*0.6, "height" : 120*0.6, 
-			"speedX" : 0, 
-			"speedY" : 0, 
-			"speedValue" : 4,
-			"jumpValue" : 4, 
-			"keyDown" : "", 
-			"keyUp" : " ", 
-			"moveDirectionX" : "left", 
-			"moveDirectionY" : "", 
-			"lastMoveDirection" : "",
-			"score" : 0
-		};
-		//defining the player1 object which within it holds the propterties listed above. If I want to alter player1 in any way then I will alter this variable and it will affect the whole program.
 		
+		var joustBackground = document.createElement("img");
+		joustBackground.src = "../img/joustBackground.png"
+
+        //Player one object as player class
+        const PlayerOne = new Player({
+            playerNum: 1,
+            rightSprite: '../img/player1Sprite1.png',
+            leftSprite: '../img/player1Sprite2.png',
+            x: 300,
+            y: 600
+        });
+
+        const PlayerTwo = new Player({
+            playerNum: 2,
+            rightSprite: '../img/player2Sprite1.png',
+            leftSprite: '../img/player2Sprite2.png',
+            x: 700,
+            y: 600
+        });
+
+
 		var rect = []
 		rect[0]= {
 			"x" : 0 , "y" : 380, "topWidth" : 225, "height" : 30
@@ -355,46 +323,46 @@
 
 			function keydown(e){
 				if (e.key == "d"){
-					player1.speedX += player1.speedValue;
-					player1.keyDown = "d";
-					player1.moveDirectionX = "right";
-					player1.lastMoveDirection = "x";
+					PlayerOne.speedX += PlayerOne.speedValue;
+					PlayerOne.keyDown = "d";
+					PlayerOne.moveDirectionX = "right";
+					PlayerOne.lastMoveDirection = "x";
 					//This if statement, which shares the same structure to all of the others found in this function, checks if the d key is being pressed and then change the player1's horizontal speed to make them move faster in the right direction. 
 				}
 				if (e.key == "a"){
-					player1.speedX -= player1.speedValue;
-					player1.keyDown = "a";
-					player1.moveDirectionX = "left";
-					player1.lastMoveDirection = "x";
+					PlayerOne.speedX -= PlayerOne.speedValue;
+					PlayerOne.keyDown = "a";
+					PlayerOne.moveDirectionX = "left";
+					PlayerOne.lastMoveDirection = "x";
 					//Same as previously mentioned with the last if statement but for going left instead of right
 				}
 				if (e.key == "r"){
-					if (player1.keyDown == ""){
-						initialVelocity1 = player1.speedY*0.75 + player1.jumpValue;
-						player1.keyDown = "r"
+					if (PlayerOne.keyDown == ""){
+						initialVelocity1 = PlayerOne.speedY*0.75 + PlayerOne.jumpValue;
+						PlayerOne.keyDown = "r"
 						time1 = 0
 						//This if statement also checks if a key is down, in this case the r or flap key for player 1 and then it makes the player "jump" up with a portion of the players previous horizontal velocity added to the jump
 					}					
 				}
 				//The rest of these if statements do the same thing as done with player 1 but for player 2 such as:
 				if (e.key == "l"){
-					player2.speedX += player2.speedValue;
-					player2.keyDown = "d";
-					player2.moveDirectionX = "right";
-					player2.lastMoveDirection = "x";
+					PlayerTwo.speedX += PlayerTwo.speedValue;
+					PlayerTwo.keyDown = "d";
+					PlayerTwo.moveDirectionX = "right";
+					PlayerTwo.lastMoveDirection = "x";
 					//move right
 				}
 				if (e.key == "j"){
-					player2.speedX -= player2.speedValue;
-					player2.keyDown = "a";
-					player2.moveDirectionX = "left";
-					player2.lastMoveDirection = "x";
+					PlayerTwo.speedX -= PlayerTwo.speedValue;
+					PlayerTwo.keyDown = "a";
+					PlayerTwo.moveDirectionX = "left";
+					PlayerTwo.lastMoveDirection = "x";
 					//move left
 				}
 				if (e.key == "p"){
-					if (player2.keyDown == ""){
-						initialVelocity2 = player2.speedY*0.75 + player2.jumpValue;
-						player2.keyDown = "p"
+					if (PlayerTwo.keyDown == ""){
+						initialVelocity2 = PlayerTwo.speedY*0.75 + PlayerTwo.jumpValue;
+						PlayerTwo.keyDown = "p"
 						time2 = 0
 					}			
 					//flap (jump)		
@@ -404,28 +372,28 @@
 
 			function keyup(e){
 				if (e.key == "d" || e.key == "a" || e.key == "r" || e.key == "s" || e.key == "l" || e.key == "j" || e.key == "p" || e.key == "k"){
-					player2.keyDown = "";
-					player1.keyDown = "";
+					PlayerTwo.keyDown = "";
+					PlayerOne.keyDown = "";
 					//This function simply varifies whether or not the keys that have been previously pressed have been let go of, thus allowing the player to press them again for an effect
 				}
 			}
 
 			//more player 1 variables
-			player1.topLeftX = player1.x + (player1.width/(15/2));
-			player1.topRightX = player1.x + player1.width - (player1.width/(15/2));
-			player1.topLeftY = player1.y;
-			player1.bottomLeftY = player1.y + player1.height;
-			player1.middleY = player1.y + (1/2)*player1.height;
-			player1.middleX = player1.x + (1/2)*player1.width;
+			PlayerOne.topLeftX = PlayerOne.x + (PlayerOne.width/(15/2));
+			PlayerOne.topRightX = PlayerOne.x + PlayerOne.width - (PlayerOne.width/(15/2));
+			PlayerOne.topLeftY = PlayerOne.y;
+			PlayerOne.bottomLeftY = PlayerOne.y + PlayerOne.height;
+			PlayerOne.middleY = PlayerOne.y + (1/2)*PlayerOne.height;
+			PlayerOne.middleX = PlayerOne.x + (1/2)*PlayerOne.width;
 			//This is further defining player 1 variables which will be used in the collisions function, these are all based off of the original player 1 variables and they change with them. They all relate to the things mentioned.
 
 			//more player 2 variables
-			player2.topLeftX = player2.x + (player2.width/(15/2));
-			player2.topRightX = player2.x + player2.width - (player2.width/(15/2));
-			player2.topLeftY = player2.y;
-			player2.bottomLeftY = player2.y + player2.height;
-			player2.middleY = player2.y + (1/2)*player2.height;
-			player2.middleX = player2.x + (1/2)*player2.width;
+			PlayerTwo.topLeftX = PlayerTwo.x + (PlayerTwo.width/(15/2));
+			PlayerTwo.topRightX = PlayerTwo.x + PlayerTwo.width - (PlayerTwo.width/(15/2));
+			PlayerTwo.topLeftY = PlayerTwo.y;
+			PlayerTwo.bottomLeftY = PlayerTwo.y + PlayerTwo.height;
+			PlayerTwo.middleY = PlayerTwo.y + (1/2)*PlayerTwo.height;
+			PlayerTwo.middleX = PlayerTwo.x + (1/2)*PlayerTwo.width;
 			//These variables all relate to player 2 and are the same as the ones previously defined above for player 1
 
 			
@@ -434,11 +402,11 @@
 				var gravity = -0.15
 				//player 1 physics equation
 				var velocityY1 = initialVelocity1 + (gravity*time1)
-				player1.y -= velocityY1
+				PlayerOne.y -= velocityY1
 
 				//player 2 physics equation
 				var velocityY2 = initialVelocity2 + (gravity*time2)
-				player2.y -= velocityY2
+				PlayerTwo.y -= velocityY2
 
 				//These two gravity equations are the same for both player 1 and player 2 and they both simply take the players initial velocity (which changes with the jumping) and apply it and gravity multiplied by time to the players velocity in the Y direction which is then applied to the player's y values (with -= to apply it the the normal way because y values are reversed with javascript)
 			}
@@ -450,44 +418,44 @@
 
 			function collisions(){
 				var bottomPlatformWidth = 105 //How high from the bottom of the canvas the bottom platform is
-				if ((player1.y + player1.height) >= (canvas.height - bottomPlatformWidth)){
-					player1.y = (canvas.height - bottomPlatformWidth) - player1.height;
+				if ((PlayerOne.y + PlayerOne.height) >= (canvas.height - bottomPlatformWidth)){
+					PlayerOne.y = (canvas.height - bottomPlatformWidth) - PlayerOne.height;
 					//check if the player is below the bottom platform and if they are then make them higher up to the point where they are not falling
 				}
-				if (player1.y < 0){
-					player1.y = 0;
+				if (PlayerOne.y < 0){
+					PlayerOne.y = 0;
 					initialVelocity1 = -initialVelocity1*0.5;
 					time1 = 0
 					//if the player is going up over the top of the screen make them bounce back down
 				}
 
-				if (player1.x > canvas.width){
-					player1.x = 0;
+				if (PlayerOne.x > canvas.width){
+					PlayerOne.x = 0;
 					//if the player goes off of the side of the screen on the right side move them onto the other (left) side of the screen
 				}
-				if (player1.x < 0){
-					player1.x = canvas.width;
+				if (PlayerOne.x < 0){
+					PlayerOne.x = canvas.width;
 					//same as previous but for the left hand side of the screen
 				}
 
 				//These next statements are the same as the previous but for player 2
-				if ((player2.y + player2.height) >= (canvas.height - bottomPlatformWidth)){
-					player2.y = (canvas.height - bottomPlatformWidth) - player2.height;
+				if ((PlayerTwo.y + PlayerTwo.height) >= (canvas.height - bottomPlatformWidth)){
+					PlayerTwo.y = (canvas.height - bottomPlatformWidth) - PlayerTwo.height;
 					//stop on bottom platform
 				}
-				if (player2.y < 0){
-					player2.y = 0;
+				if (PlayerTwo.y < 0){
+					PlayerTwo.y = 0;
 					initialVelocity2 = -initialVelocity2*0.5;
 					time1 = 0
 					//bounce on roof
 				}
 
-				if (player2.x > canvas.width){
-					player2.x = 0;
+				if (PlayerTwo.x > canvas.width){
+					PlayerTwo.x = 0;
 					//move to left side of screen when off of the screen for the right side
 				}
-				if (player2.x < 0){
-					player2.x = canvas.width;
+				if (PlayerTwo.x < 0){
+					PlayerTwo.x = canvas.width;
 					//same as previous but for left to right
 				}
 
@@ -499,12 +467,12 @@
 						//This for loop repeats for each of the different rectangles whic the player can collide with, minimising the amount of code neeeded for collisions because I dont need to rewrite it.
 
 						//Top rect hitbox
-						if (rect[i].topRect.topLeftX <= player1.middleX && 
-							player1.middleX <= rect[i].topRect.topRightX && 
-							rect[i].topRect.topLeftY <= player1.bottomLeftY && 
-							player1.bottomLeftY <= rect[i].topRect.topBottomLeftY){
-							player1.speedY = 0;
-							player1.y = rect[i].topRect.topLeftY - player1.height - 0.1
+						if (rect[i].topRect.topLeftX <= PlayerOne.middleX && 
+							PlayerOne.middleX <= rect[i].topRect.topRightX && 
+							rect[i].topRect.topLeftY <= PlayerOne.bottomLeftY && 
+							PlayerOne.bottomLeftY <= rect[i].topRect.topBottomLeftY){
+							PlayerOne.speedY = 0;
+							PlayerOne.y = rect[i].topRect.topLeftY - PlayerOne.height - 0.1
 							grounded = true;
 							time1 = 0;
 							initialVelocity1 = 0
@@ -514,53 +482,53 @@
 
 						
 						//middle left rect hitbox
-						if (rect[i].leftSideRect.leftMiddleTopLeftX <= player1.topRightX && 
-							player1.topRightX <= rect[i].leftSideRect.leftMiddleTopRightX && 
-							rect[i].leftSideRect.leftMiddleTopY <= player1.middleY && 
-							player1.middleY <= rect[i].leftSideRect.leftMiddleBottomY){
-							player1.speedX = 0
-							player1.x -= 10
+						if (rect[i].leftSideRect.leftMiddleTopLeftX <= PlayerOne.topRightX && 
+							PlayerOne.topRightX <= rect[i].leftSideRect.leftMiddleTopRightX && 
+							rect[i].leftSideRect.leftMiddleTopY <= PlayerOne.middleY && 
+							PlayerOne.middleY <= rect[i].leftSideRect.leftMiddleBottomY){
+							PlayerOne.speedX = 0
+							PlayerOne.x -= 10
 							//if the player is colliding with the left hand side of the hitbox on the left side rect hitbox then push them backwards to the left and make them stop moving in that direction
 						}
 
 						//middle right rect hitbox
-						if (rect[i].rightSideRect.rightMiddleTopLeftX <= player1.topLeftX && 
-							player1.topLeftX <= rect[i].rightSideRect.rightMiddleTopRightX && 
-							rect[i].rightSideRect.rightMiddleTopY <= player1.middleY && 
-							player1.middleY <= rect[i].rightSideRect.rightMiddleBottomY){
-							player1.speedX = 0
-							player1.x += 10
+						if (rect[i].rightSideRect.rightMiddleTopLeftX <= PlayerOne.topLeftX && 
+							PlayerOne.topLeftX <= rect[i].rightSideRect.rightMiddleTopRightX && 
+							rect[i].rightSideRect.rightMiddleTopY <= PlayerOne.middleY && 
+							PlayerOne.middleY <= rect[i].rightSideRect.rightMiddleBottomY){
+							PlayerOne.speedX = 0
+							PlayerOne.x += 10
 							//same as mentioned above but for the right hand side hitbox
 						
 						}
 
 						//bottom rect hitbox
-						if (rect[i].bottomRect.bottomTopLeftX <= player1.middleX && 
-							player1.middleX <= rect[i].bottomRect.bottomTopRightX && 
-							rect[i].bottomRect.bottomTopLeftY <= player1.topLeftY && 
-							player1.topLeftY <= rect[i].bottomRect.bottomBottomLeftY){
-							player1.speedY = 0;
+						if (rect[i].bottomRect.bottomTopLeftX <= PlayerOne.middleX && 
+							PlayerOne.middleX <= rect[i].bottomRect.bottomTopRightX && 
+							rect[i].bottomRect.bottomTopLeftY <= PlayerOne.topLeftY && 
+							PlayerOne.topLeftY <= rect[i].bottomRect.bottomBottomLeftY){
+							PlayerOne.speedY = 0;
 							initialVelocity1 = 0;
-							player1.y = rect[i].bottomRect.bottomBottomLeftY + 10 
+							PlayerOne.y = rect[i].bottomRect.bottomBottomLeftY + 10 
 							//This checks to see if the player is colliding with the bottom of the box and if they are then push them downwards and make them stop moving upwards which is done by making the player initial velocity = 0
 
 						}
 					}
 
-					if (player2.topLeftX <= player1.topRightX &&
-						player1.topLeftX <= player2.topRightX &&
-						player2.topLeftY <= player1.bottomLeftY &&
-						player1.topLeftY <= player2.bottomLeftY){
-						if (player1.y < player2.y){
-							player2.x = 0;
-							player2.y = 605;
-							player2.speedX = 0;
+					if (PlayerTwo.topLeftX <= PlayerOne.topRightX &&
+						PlayerOne.topLeftX <= PlayerTwo.topRightX &&
+						PlayerTwo.topLeftY <= PlayerOne.bottomLeftY &&
+						PlayerOne.topLeftY <= PlayerTwo.bottomLeftY){
+						if (PlayerOne.y < PlayerTwo.y){
+							PlayerTwo.x = 0;
+							PlayerTwo.y = 605;
+							PlayerTwo.speedX = 0;
 							clearPlayer2 = true;
 							var deathLog2 = 0;
 							deathLog2 += 1;
-							player1.score += 150
+							PlayerOne.score += 150
 							var a = setInterval(function(){
-								player2.speedX = 0;
+								PlayerTwo.speedX = 0;
 								initialVelocity2 = 0;
 
 							},10);
@@ -568,32 +536,32 @@
 							if (deathLog2 == 1){
 								var y = setTimeout(function(){
 									var x = Math.floor(Math.random()*numberOfSpawnPoints);
-									player2.x = spawnPoint[x].x;
-									player2.y = spawnPoint[x].y;
+									PlayerTwo.x = spawnPoint[x].x;
+									PlayerTwo.y = spawnPoint[x].y;
 									clearPlayer2 = false;
 									clearInterval(a);
 								},3000)
 							}
 							
 						}
-						if (player2.y < player1.y){
+						if (PlayerTwo.y < PlayerOne.y){
 							clearPlayer1 = true
-							player1.x = 0;
-							player1.y = 605;
-							player1.speedX = 0;
+							PlayerOne.x = 0;
+							PlayerOne.y = 605;
+							PlayerOne.speedX = 0;
 							var deathLog1 = 0;
 							deathLog1 += 1;
-							player2.score += 150
+							PlayerTwo.score += 150
 							var a = setInterval(function(){
-								player1.speedX = 0;
+								PlayerOne.speedX = 0;
 								initialVelocity1 = 0;
 
 							},10);
 							if (deathLog1 == 1){
 								var y = setTimeout(function(){
 									var x = Math.floor(Math.random()*numberOfSpawnPoints);
-									player1.x = spawnPoint[x].x;
-									player1.y = spawnPoint[x].y;
+									PlayerOne.x = spawnPoint[x].x;
+									PlayerOne.y = spawnPoint[x].y;
 									clearPlayer1 = false;
 									clearInterval(a);
 								},3000)
@@ -607,12 +575,12 @@
 					//This function is the exact same as the player 1 hitbox however it doesn't check if the players are colldinng as that has already been done
 					for (i=0; i<=6; i++){
 						//Top rect hitbox
-						if (rect[i].topRect.topLeftX <= player2.middleX && 
-							player2.middleX <= rect[i].topRect.topRightX && 
-							rect[i].topRect.topLeftY <= player2.bottomLeftY && 
-							player2.bottomLeftY <= rect[i].topRect.topBottomLeftY){
-							player2.speedY = 0;
-							player2.y = rect[i].topRect.topLeftY - player2.height - 0.1
+						if (rect[i].topRect.topLeftX <= PlayerTwo.middleX && 
+							PlayerTwo.middleX <= rect[i].topRect.topRightX && 
+							rect[i].topRect.topLeftY <= PlayerTwo.bottomLeftY && 
+							PlayerTwo.bottomLeftY <= rect[i].topRect.topBottomLeftY){
+							PlayerTwo.speedY = 0;
+							PlayerTwo.y = rect[i].topRect.topLeftY - PlayerTwo.height - 0.1
 							grounded = true;
 							time2 = 0;
 							initialVelocity2 = 0
@@ -621,32 +589,32 @@
 
 						
 						//middle left rect hitbox
-						if (rect[i].leftSideRect.leftMiddleTopLeftX <= player2.topRightX && 
-							player2.topRightX <= rect[i].leftSideRect.leftMiddleTopRightX && 
-							rect[i].leftSideRect.leftMiddleTopY <= player2.middleY && 
-							player2.middleY <= rect[i].leftSideRect.leftMiddleBottomY){
-							player2.speedX = 0
-							player2.x -= 10
+						if (rect[i].leftSideRect.leftMiddleTopLeftX <= PlayerTwo.topRightX && 
+							PlayerTwo.topRightX <= rect[i].leftSideRect.leftMiddleTopRightX && 
+							rect[i].leftSideRect.leftMiddleTopY <= PlayerTwo.middleY && 
+							PlayerTwo.middleY <= rect[i].leftSideRect.leftMiddleBottomY){
+							PlayerTwo.speedX = 0
+							PlayerTwo.x -= 10
 						}
 
 						//middle right rect hitbox
-						if (rect[i].rightSideRect.rightMiddleTopLeftX <= player2.topLeftX && 
-							player2.topLeftX <= rect[i].rightSideRect.rightMiddleTopRightX && 
-							rect[i].rightSideRect.rightMiddleTopY <= player2.middleY && 
-							player2.middleY <= rect[i].rightSideRect.rightMiddleBottomY){
-							player2.speedX = 0
-							player2.x += 10
+						if (rect[i].rightSideRect.rightMiddleTopLeftX <= PlayerTwo.topLeftX && 
+							PlayerTwo.topLeftX <= rect[i].rightSideRect.rightMiddleTopRightX && 
+							rect[i].rightSideRect.rightMiddleTopY <= PlayerTwo.middleY && 
+							PlayerTwo.middleY <= rect[i].rightSideRect.rightMiddleBottomY){
+							PlayerTwo.speedX = 0
+							PlayerTwo.x += 10
 						
 						}
 
 						//bottom rect hitbox
-						if (rect[i].bottomRect.bottomTopLeftX <= player2.middleX && 
-							player2.middleX <= rect[i].bottomRect.bottomTopRightX && 
-							rect[i].bottomRect.bottomTopLeftY <= player2.topLeftY && 
-							player2.topLeftY <= rect[i].bottomRect.bottomBottomLeftY){
-							player2.speedY = 0;
+						if (rect[i].bottomRect.bottomTopLeftX <= PlayerTwo.middleX && 
+							PlayerTwo.middleX <= rect[i].bottomRect.bottomTopRightX && 
+							rect[i].bottomRect.bottomTopLeftY <= PlayerTwo.topLeftY && 
+							PlayerTwo.topLeftY <= rect[i].bottomRect.bottomBottomLeftY){
+							PlayerTwo.speedY = 0;
 							initialVelocity2 = 0;
-							player2.y = rect[i].bottomRect.bottomBottomLeftY + 10 //rect1.bottomRect.bottomLeftY + 0.1
+							PlayerTwo.y = rect[i].bottomRect.bottomBottomLeftY + 10 //rect1.bottomRect.bottomLeftY + 0.1
 
 						}
 					}
@@ -661,11 +629,11 @@
 			function intBetween() {
 			    var maxSpeed = 3;
 			    //player 1 max and min speed
-			    if (player1.speedX<-(maxSpeed*player1.speedValue)){player1.speedX=-(maxSpeed*player1.speedValue)};
-			    if (player1.speedX>maxSpeed*player1.speedValue){player1.speedX=maxSpeed*player1.speedValue};
+			    if (PlayerOne.speedX<-(maxSpeed*PlayerOne.speedValue)){PlayerOne.speedX=-(maxSpeed*PlayerOne.speedValue)};
+			    if (PlayerOne.speedX>maxSpeed*PlayerOne.speedValue){PlayerOne.speedX=maxSpeed*PlayerOne.speedValue};
 			    //player 2 max and min speed
-			    if (player2.speedX<-(maxSpeed*player2.speedValue)){player2.speedX=-(maxSpeed*player2.speedValue)};
-			    if (player2.speedX>maxSpeed*player2.speedValue){player2.speedX=maxSpeed*player2.speedValue};
+			    if (PlayerTwo.speedX<-(maxSpeed*PlayerTwo.speedValue)){PlayerTwo.speedX=-(maxSpeed*PlayerTwo.speedValue)};
+			    if (PlayerTwo.speedX>maxSpeed*PlayerTwo.speedValue){PlayerTwo.speedX=maxSpeed*PlayerTwo.speedValue};
 
 			    //This code just checks what speed the players are going and checks to make sure the player isn;t going too fast in the left or right direction and if they are then their speed is adjusted to meet the range that is allowed
 			}
@@ -684,11 +652,11 @@
 
 			//draw the player1 sprite
 			if (clearPlayer1 == false){
-				if (player1.moveDirectionX == "right"){
-					context.drawImage(player1Sprite1, player1.x, player1.y, player1.width, player1.height);
+				if (PlayerOne.moveDirectionX == "right"){
+					context.drawImage(PlayerOne.rightSprite, PlayerOne.x, PlayerOne.y, PlayerOne.width, PlayerOne.height);
 				}
-				if (player1.moveDirectionX == "left"){
-					context.drawImage(player1Sprite2, player1.x, player1.y, player1.width, player1.height);
+				if (PlayerOne.moveDirectionX == "left"){
+					context.drawImage(PlayerOne.leftSprite, PlayerOne.x, PlayerOne.y, PlayerOne.width, PlayerOne.height);
 				}
 				//This code checks what direction the player is moving and adjusts and draws their image to the screen in the direction that they are going
 			}
@@ -697,11 +665,11 @@
 
 			//draw the player 2 sprite
 			if (clearPlayer2 == false){
-				if (player2.moveDirectionX == "right"){
-					context.drawImage(player2Sprite1, player2.x, player2.y, player2.width, player2.height);
+				if (PlayerTwo.moveDirectionX == "right"){
+					context.drawImage(PlayerTwo.rightSprite, PlayerTwo.x, PlayerTwo.y, PlayerTwo.width, PlayerTwo.height);
 				}
-				if (player2.moveDirectionX == "left"){
-					context.drawImage(player2Sprite2, player2.x, player2.y, player2.width, player2.height);
+				if (PlayerTwo.moveDirectionX == "left"){
+					context.drawImage(PlayerTwo.leftSprite, PlayerTwo.x, PlayerTwo.y, PlayerTwo.width, PlayerTwo.height);
 				}
 				//This code draws the player 2 to the screen in the same way as done with player 1
 			}
@@ -710,19 +678,19 @@
 			//context.fillRect(rect[0].x, rect[0].y, rect[0].topWidth, rect[0].height);
 
 
-			player1.x += player1.speedX;
-			player1.y += player1.speedY;
+			PlayerOne.x += PlayerOne.speedX;
+			PlayerOne.y += PlayerOne.speedY;
 
 
-			player2.x += player2.speedX;
-			player2.y += player2.speedY;
+			PlayerTwo.x += PlayerTwo.speedX;
+			PlayerTwo.y += PlayerTwo.speedY;
 			
 			//This code changes the player 1 and 2 x and y values based off of how they are meant to be changed by the speed (direction that they are going)
 
 			context.font = "24px sans-serif"; 
 			context.fillStyle = "rgb(255, 255, 255)"; 
-			context.fillText("Player 1: " + player1.score, 300, 632);
-			context.fillText("Player 2: " + player2.score, 600, 632);
+			context.fillText("Player 1: " + PlayerOne.score, 300, 632);
+			context.fillText("Player 2: " + PlayerTwo.score, 600, 632);
 			//This code draws the player 1 and 2 scores to the screen
 			
 		}
@@ -736,7 +704,3 @@
 		}
 		
 		GameLoop();
-
-	</script>
-</body>
-</html>
