@@ -1,4 +1,5 @@
 import { Player } from "../src/Player.js";
+import { Rectagle } from "./Rectangle.js";
 
 var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
 		var context = canvas.getContext("2d"); //defines context - this is something which is used to draw to the canvas
@@ -26,14 +27,20 @@ var canvas = document.getElementById("gameCanvas"); //define the variable canvas
 
 
 		var rect = []
-		rect[0]= {
-			"x" : 0 , "y" : 380, "topWidth" : 225, "height" : 30
-		};
-		//defining the rect[0] object which within it holds the propterties listed above
-		rect[0].sideWidth = rect[0].topWidth*(1/10);
-		rect[0].bottomWidth = rect[0].topWidth - (rect[0].sideWidth*2);
-		rect[0].topHeight = rect[0].height*(1/10);
-		rect[0].sideHeight = rect[0].height - rect[0].topHeight;
+		rect[0] = new Rectagle({
+			x: 0,
+            y: 380, 
+            topWidth: 225, 
+            height: 30,
+		});
+
+        rect[0].sideWidth = rect[0].topWidth*(1/10);
+        rect[0].bottomWidth = rect[0].topWidth - (rect[0].sideWidth*2);
+        rect[0].topHeight = rect[0].height*(1/10);
+        rect[0].sideHeight = rect[0].height - rect[0].topHeight;
+
+		rect[0].generateHitboxes();
+		
 		//further defining aspects of the rectangle - basing them off of the original rectangle so that if I change the values found in the original rectangle then it will change the rest of the values accordingly
 
 		rect[0].topRect = {
