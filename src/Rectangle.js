@@ -1,12 +1,12 @@
 export class Rectagle {
-    constructor({x, y, topWidth, height}) {
+    constructor({x, y, topWidth, sideWidth, bottomWidth, topHeight, sideHeight, height}) {
 
         this.x = x;
         this.y = y;
 
         this.height = height;
         
-        this.topWidth = topWidth;
+        this.topWidth = 0;
         this.sideWidth = 0;
         this.bottomWidth = 0;
         this.topHeight = 0;
