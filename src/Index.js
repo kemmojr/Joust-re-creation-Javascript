@@ -1,6 +1,11 @@
 import { Player } from "../src/Player.js";
 import { Rectagle } from "./Rectangle.js";
 
+const leftArrow = 37;
+const upArrow = 38;
+const rightArrow = 39;
+const downArrow = 40;
+
 var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
 		var context = canvas.getContext("2d"); //defines context - this is something which is used to draw to the canvas
 
@@ -343,33 +348,33 @@ var canvas = document.getElementById("gameCanvas"); //define the variable canvas
 					PlayerOne.lastMoveDirection = "x";
 					//Same as previously mentioned with the last if statement but for going left instead of right
 				}
-				if (e.key == "r"){
+				if (e.key == "w"){
 					if (PlayerOne.keyDown == ""){
 						initialVelocity1 = PlayerOne.speedY*0.75 + PlayerOne.jumpValue;
-						PlayerOne.keyDown = "r"
+						PlayerOne.keyDown = "w"
 						time1 = 0
 						//This if statement also checks if a key is down, in this case the r or flap key for player 1 and then it makes the player "jump" up with a portion of the players previous horizontal velocity added to the jump
 					}					
 				}
 				//The rest of these if statements do the same thing as done with player 1 but for player 2 such as:
-				if (e.key == "l"){
+				if (e.key == 'ArrowRight'){
 					PlayerTwo.speedX += PlayerTwo.speedValue;
 					PlayerTwo.keyDown = "d";
 					PlayerTwo.moveDirectionX = "right";
 					PlayerTwo.lastMoveDirection = "x";
 					//move right
 				}
-				if (e.key == "j"){
+				if (e.key == 'ArrowLeft'){
 					PlayerTwo.speedX -= PlayerTwo.speedValue;
 					PlayerTwo.keyDown = "a";
 					PlayerTwo.moveDirectionX = "left";
 					PlayerTwo.lastMoveDirection = "x";
 					//move left
 				}
-				if (e.key == "p"){
+				if (e.key == 'ArrowUp'){
 					if (PlayerTwo.keyDown == ""){
 						initialVelocity2 = PlayerTwo.speedY*0.75 + PlayerTwo.jumpValue;
-						PlayerTwo.keyDown = "p"
+						PlayerTwo.keyDown = 'ArrowRight'
 						time2 = 0
 					}			
 					//flap (jump)		
@@ -378,7 +383,7 @@ var canvas = document.getElementById("gameCanvas"); //define the variable canvas
 			} 
 
 			function keyup(e){
-				if (e.key == "d" || e.key == "a" || e.key == "r" || e.key == "s" || e.key == "l" || e.key == "j" || e.key == "p" || e.key == "k"){
+				if (e.key === "d" || e.key === "a" || e.key === "w" || e.key === "s" || e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === "k"){
 					PlayerTwo.keyDown = "";
 					PlayerOne.keyDown = "";
 					//This function simply varifies whether or not the keys that have been previously pressed have been let go of, thus allowing the player to press them again for an effect
