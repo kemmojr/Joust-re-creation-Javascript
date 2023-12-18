@@ -1,10 +1,15 @@
 import { Player } from "../src/Player.js";
 import { Rectagle } from "./Rectangle.js";
+import { modal } from "./modal.js";
 
 const leftArrow = 37;
 const upArrow = 38;
 const rightArrow = 39;
 const downArrow = 40;
+
+window.addEventListener('load', () => {
+	modal();
+});
 
 var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
 		var context = canvas.getContext("2d"); //defines context - this is something which is used to draw to the canvas

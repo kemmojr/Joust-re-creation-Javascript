@@ -4,7 +4,22 @@ body {
     align-items: center;
 }
 
-button {
+.btn.btn-success {
     position: fixed;
     top: 7px;
+}
+
+dialog form {
+    display: flex;
+    justify-content: flex-end;
+    
+    button {
+        font-size: xx-large;
+    }
+}
+
+
+dialog {
+    height: 75%;
+    width: 75%;
 }
