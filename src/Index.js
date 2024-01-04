@@ -8,7 +8,7 @@ const rightArrow = 39;
 const downArrow = 40;
 
 window.addEventListener('load', () => {
-	modal();
+	//modal();
 });
 
 var canvas = document.getElementById("gameCanvas"); //define the variable canvas which holds the variables stored in the gameCanvas id
